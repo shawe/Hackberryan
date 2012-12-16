@@ -511,6 +511,32 @@ echo "###########################################"
 apt-get -y install lsb-base lsb-core lsb-cxx lsb-languages lsb-release lsb-security lsb-rpm
 wait
 
+
+
+#echo "###########################################"
+#echo "##  Here we can add more extra packages  ##"
+#echo "###########################################"
+
+#echo "###########################################"
+#echo "## LXDE desktop by default               ##"
+#echo "###########################################"
+#apt-get -y lxde lxde-core lxde-common lxde-icon-theme lxappearance lxdm lxscreenshot lxfind lxterminal lxsession lx-session-edit lxrandr lxmusic lxmenu-data lxinput
+#wait
+
+#echo "###########################################"
+#echo "## TCOS client support (need help)       ##"
+#echo "###########################################"
+#apt-get -y ...
+#wait
+
+#echo "###########################################"
+#echo "## LTSP client support (need help)       ##"
+#echo "###########################################"
+#apt-get -y ...
+#wait
+
+
+
 echo "##############################"
 echo "# Setting network interfaces #"
 echo "##############################"
@@ -555,7 +581,15 @@ echo 'T0:2345:respawn:/sbin/getty -L ttyS0 115200 linux' >> //etc/inittab
 echo "######################################################"
 echo "# Enabling modules for disp, lcd and hdmi by default #"
 echo "######################################################"
-sed -i 's/exit 0/\nmodprobe disp\nmodprobe lcd\nmodprobe hdmi\n\nexit 0/g' //etc/rc.local
+cat << END >> /etc/modules
+8192cu
+lcd
+hdmi
+ump
+disp
+#mali
+#mali_drm
+END
 
 echo "##########################"
 echo "# Changing root password #"
@@ -702,7 +736,7 @@ END
 		$SUDOTOOL "dd if=/dev/zero of=${DEVICE} bs=512 count=2047"
 
 #		(echo n;echo;echo;echo;echo "+17M";echo n;echo ;echo;echo;echo;echo w) | $SUDOTOOL "fdisk ${DEVICE}"
-		msgInfo "Creating partition on device ${DEVICE}..."
+		msgInfo "Creating partitions on device ${DEVICE}..."
 		cat <<EOF | sudo fdisk ${DEVICE}
 n
 p
@@ -747,6 +781,12 @@ EOF
 		$SUDOTOOL "dd if=${WORK_DIR}/source/u-boot-sunxi/spl/sunxi-spl.bin of=${DEVICE} bs=1024 seek=8"
 		msgInfo "Flashing u-boot-spl.bin to ${DEVICE}"
 		$SUDOTOOL "dd if=${WORK_DIR}/source/u-boot-sunxi/spl/u-boot-spl.bin of=${DEVICE} bs=1024 seek=32"
+		
+		msgInfo "Checking filesystem on SD_UBOOT_FS"
+		sudo fsck.vfat -a /dev/mmcblk0p1
+		
+		msgInfo "Checking filesystem on SD_ROOT_FS"
+		sudo fsck.ext3 -p /dev/mmcblk0p2
 		
 		msgInfo "############################################################"
 		msgInfo "## Created Debian armhf image for HackBerry AllWinner A10 ##"
