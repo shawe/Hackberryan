@@ -371,7 +371,7 @@ case $LICENSE in
 			msgInfo "Creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file of $[(${SD_SPACE}-17)]MB..."
 			$SUDOTOOL "dd if=/dev/zero of=${WORK_DIR}/${HOSTNAME}-rootfs.img bs=1M count=$[${SD_SPACE}-17]"
 			msgInfo "Formatting ${WORK_DIR}/${HOSTNAME}-rootfs.img ..."
-			$SUDOTOOL "mkfs.ext4 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
+			$SUDOTOOL "mkfs.ext4 -L ROOT_FS -F ${WORK_DIR}/${HOSTNAME}-rootfs.img"
 		else
 			msgWarn "File ${WORK_DIR}/${HOSTNAME}-rootfs.img already exists"
 			zenity --question \
@@ -384,7 +384,7 @@ case $LICENSE in
 					msgInfo "Creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file of $[(${SD_SPACE}-17)]MB..."
 					$SUDOTOOL "dd if=/dev/zero of=${WORK_DIR}/${HOSTNAME}-rootfs.img bs=1M count=$[${SD_SPACE}-17]"
 					msgInfo "Formatting ${WORK_DIR}/${HOSTNAME}-rootfs.img ..."
-					$SUDOTOOL "mkfs.ext4 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
+					$SUDOTOOL "mkfs.ext4 -L ROOT_FS -F ${WORK_DIR}/${HOSTNAME}-rootfs.img"
 					;;
 				1)
 					msgWarn "Not re-creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file."
