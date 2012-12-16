@@ -70,6 +70,7 @@ elif [ `which sudo | wc -w` -ge 1 ] ; then
 	SUDOTOOL="sudo"
 fi
 msgWarn "DEBUG: SUDO: ${SUDOTOOL}"
+$SUDOTOOL "echo"
 
 # Checking packages dependencies
 if [ "`which zenity | wc -w`" != "0" ] ; then
@@ -370,7 +371,7 @@ case $LICENSE in
 			msgInfo "Creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file of $[(${SD_SPACE}-17)]MB..."
 			$SUDOTOOL "dd if=/dev/zero of=${WORK_DIR}/${HOSTNAME}-rootfs.img bs=1M count=$[${SD_SPACE}-17]"
 			msgInfo "Formatting ${WORK_DIR}/${HOSTNAME}-rootfs.img ..."
-			$SUDOTOOL "mkfs.ext3 -L ROOT_FS -F ${WORK_DIR}/${HOSTNAME}-rootfs.img"
+			$SUDOTOOL "mkfs.ext3 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
 		else
 			msgWarn "File ${WORK_DIR}/${HOSTNAME}-rootfs.img already exists"
 			zenity --question \
@@ -383,7 +384,7 @@ case $LICENSE in
 					msgInfo "Creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file of $[(${SD_SPACE}-17)]MB..."
 					$SUDOTOOL "dd if=/dev/zero of=${WORK_DIR}/${HOSTNAME}-rootfs.img bs=1M count=$[${SD_SPACE}-17]"
 					msgInfo "Formatting ${WORK_DIR}/${HOSTNAME}-rootfs.img ..."
-					$SUDOTOOL "mkfs.ext3 -L ROOT_FS -F ${WORK_DIR}/${HOSTNAME}-rootfs.img"
+					$SUDOTOOL "mkfs.ext3 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
 					;;
 				1)
 					msgWarn "Not re-creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file."
@@ -633,7 +634,6 @@ CHROOTEOF
 			git pull
 		fi
 		
-		#make clean
 		make hackberry CROSS_COMPILE=arm-linux-gnueabi- || { msgErr "Compilation of u-boot-sunxi failed" ; exit 1; }
 		cd ..
 		
@@ -663,7 +663,7 @@ CHROOTEOF
 			git pull
 		fi
 		
-		make clean
+		make mrproper
 		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- sun4i_defconfig || { msgErr "Compilation of linux-sunxi failed" ; exit 1; }
 		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j16 uImage modules || { msgErr "Compilation of linux-sunxi modules failed" ; exit 1; }
 		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=output modules_install || { msgErr "Generation of output modules failed" ; exit 1; }
@@ -783,10 +783,11 @@ EOF
 		$SUDOTOOL "dd if=${WORK_DIR}/source/u-boot-sunxi/spl/u-boot-spl.bin of=${DEVICE} bs=1024 seek=32"
 		
 		msgInfo "Checking filesystem on SD_UBOOT_FS"
-		sudo fsck.vfat -a /dev/mmcblk0p1
+		sudo fsck.vfat -a ${UBOOT_PART}
 		
 		msgInfo "Checking filesystem on SD_ROOT_FS"
-		sudo fsck.ext3 -p /dev/mmcblk0p2
+		sudo fsck.ext3 -p ${ROOTFS_PART}
+
 		
 		msgInfo "############################################################"
 		msgInfo "## Created Debian armhf image for HackBerry AllWinner A10 ##"
