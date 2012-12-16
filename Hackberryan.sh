@@ -371,7 +371,7 @@ case $LICENSE in
 			msgInfo "Creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file of $[(${SD_SPACE}-17)]MB..."
 			$SUDOTOOL "dd if=/dev/zero of=${WORK_DIR}/${HOSTNAME}-rootfs.img bs=1M count=$[${SD_SPACE}-17]"
 			msgInfo "Formatting ${WORK_DIR}/${HOSTNAME}-rootfs.img ..."
-			$SUDOTOOL "mkfs.ext3 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
+			$SUDOTOOL "mkfs.ext4 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
 		else
 			msgWarn "File ${WORK_DIR}/${HOSTNAME}-rootfs.img already exists"
 			zenity --question \
@@ -384,7 +384,7 @@ case $LICENSE in
 					msgInfo "Creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file of $[(${SD_SPACE}-17)]MB..."
 					$SUDOTOOL "dd if=/dev/zero of=${WORK_DIR}/${HOSTNAME}-rootfs.img bs=1M count=$[${SD_SPACE}-17]"
 					msgInfo "Formatting ${WORK_DIR}/${HOSTNAME}-rootfs.img ..."
-					$SUDOTOOL "mkfs.ext3 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
+					$SUDOTOOL "mkfs.ext4 -L ROOT_FS ${WORK_DIR}/${HOSTNAME}-rootfs.img"
 					;;
 				1)
 					msgWarn "Not re-creating ${WORK_DIR}/${HOSTNAME}-rootfs.img file."
@@ -569,7 +569,7 @@ cat <<END > //etc/fstab
 # /etc/fstab: static file system information.
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
-/dev/root      /               ext3    noatime,errors=remount-ro 0 1
+/dev/root      /               ext4    noatime,errors=remount-ro 0 1
 tmpfs          /tmp            tmpfs   defaults          0       0
 END
 
@@ -754,7 +754,7 @@ EOF
 		msgInfo "Formatting ${UBOOT_PART}..."
 		sudo mkfs.vfat -F 16 -n BOOT_FS ${UBOOT_PART}
 		msgInfo "Formatting ${ROOTFS_PART}..."
-		sudo mkfs.ext3 -L ROOT_FS ${ROOTFS_PART}
+		sudo mkfs.ext4 -L ROOT_FS ${ROOTFS_PART}
 		
 		msgInfo "Reloading device ${DEVICE}..."
 		partprobe
@@ -769,7 +769,7 @@ EOF
 		$SUDOTOOL "umount ${WORK_DIR}/mountpoints/SD_UBOOT_FS"
 		
 		msgInfo "Mounting ${ROOTFS_PART} to ${WORK_DIR}/mountpoints/SD_ROOT_FS..."
-		$SUDOTOOL "mount -t ext3 ${ROOTFS_PART} ${WORK_DIR}/mountpoints/SD_ROOT_FS"
+		$SUDOTOOL "mount -t ext4 ${ROOTFS_PART} ${WORK_DIR}/mountpoints/SD_ROOT_FS"
 		msgInfo "Copying files to ROOT_FS ..."
 		sudo cp -a ${WORK_DIR}/mountpoints/ROOT_FS/* ${WORK_DIR}/mountpoints/SD_ROOT_FS/
 		sync
@@ -786,7 +786,7 @@ EOF
 		sudo fsck.vfat -a ${UBOOT_PART}
 		
 		msgInfo "Checking filesystem on SD_ROOT_FS"
-		sudo fsck.ext3 -p ${ROOTFS_PART}
+		sudo fsck.ext4 -p ${ROOTFS_PART}
 
 		
 		msgInfo "############################################################"
