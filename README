@@ -5,7 +5,7 @@ Getting Started
 ---------------
 
 To get started with Hackberryan:
-	git clone git://github.com/shawe/Hackberryan
+	git clone git://github.com/shawe/Hackberryan.git
 
 Once it's fully downloaded you can execute the script Hackberryan.sh with:
 	./Hackberryan.sh
