@@ -1,3 +1,6 @@
  - Allow the user to choose between compile all the necessary files or use precompiled files that are know to be fully working version (less debug problems).
  - Add some more customization, like choose default desktop or add more default packages.
  - Complete all minimal external strings.
+ - Add support for initramfs (readed on http://www.cnx-software.com/2012/08/03/allwinner-a10-initramfs-support-and-linaro-12-07-image/ )
+ - Create an option for flash Hackberryan on internal NAND
+ - Include support for Mali400 (readed on: https://www.miniand.com/forums/forums/development--3/topics/getting-x11-display-drivers-working-with-headless-debian )
