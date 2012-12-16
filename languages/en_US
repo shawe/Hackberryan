@@ -1,0 +1,54 @@
+STRING_LOADING_LANG="Loading language: English"
+STRING_LICENSE="License"
+STRING_AGREE="I read and accept terms"
+
+STRING_LICENSE_ACCEPTED="Terms of license accepted by the user"
+STRING_LICENSE_REJECTED="Terms of license rejected by the user"
+STRING_LICENSE_ERROR="Unexpected error"
+
+STRING_SELECT_DEVICE="Select device"
+STRING_DEVICES_PLUGGED="Listing all devices plugged-in"
+STRING_DEVICES="Devices"
+STRING_NO_DEVICE="You didn't specify a hostname"
+
+STRING_SPECIFY_HOSTNAME="Select a name for the host"
+STRING_INPUT_HOSTNAME="Input a hostname:"
+STRING_HOSTNAME_DEFAULT="HackBerryan"
+STRING_NO_HOSTNAME="You didn't specify a hostname"
+
+STRING_SPECIFY_MAC_ADDR="Select a MAC address"
+STRING_INPUT_MAC_ADDR="Input a MAC address:"
+STRING_MAC_ADDR_DEFAULT="00:11:22:33:44:55"
+STRING_NO_MAC_ADDR="You didn't specify a MAC address"
+
+STRING_SPECIFY_WORK_DIR="Select a work directory"
+STRING_INPUT_WORK_DIR="Input a work directory:"
+STRING_WORK_DIR_DEFAULT="~/${STRING_HOSTNAME_DEFAULT}-temp"
+STRING_NO_WORK_DIR="You didn't specify a work directory"
+
+STRING_SPECIFY_ARM_COMPILER_VERSION="Select version of GCC for ARM"
+STRING_INPUT_ARM_COMPILER_VERSION="Select your prefered version:"
+STRING_ARM_COMPILER_VERSION_COLUMN="GCC"
+STRING_NO_ARM_COMPILER_VERSION="You didn't specify a version of GCC for ARM"
+
+STRING_SPECIFY_IMG_LANG="Choose language for the image"
+STRING_IMG_LANG_COLUMN_1="LANG"
+STRING_IMG_LANG_COLUMN_2="Language"
+STRING_IMG_LANG_CODE_1_1="es_ES.UTF-8"
+STRING_IMG_LANG_CODE_1_2="Español"
+STRING_IMG_LANG_CODE_2_1="en_US.UTF-8"
+STRING_IMG_LANG_CODE_2_2="English"
+STRING_NO_IMG_LANG="You didn't specify any language"
+
+STRING_SPECIFY_ROOT_PASS="Choose a password for root"
+STRING_INPUT_ROOT_PASS="Input the root password:"
+STRING_ROOT_PASS_DEFAULT="root"
+STRING_NO_ROOT_PASS="You didn't specify the root password"
+
+STRING_SPECIFY_WIFI_NETWORK_NAME="Choose the name of Wireless LAN"
+STRING_INPUT_WIFI_NETWORK_NAME="Input the name of Wireless LAN"
+STRING_NO_WIFI_NETWORK_NAME="You didn't specify any name of Wireless LAN"
+
+STRING_SPECIFY_WIFI_NETWORK_PASS="Choose the password for the Wireless LAN"
+STRING_INPUT_WIFI_NETWORK_PASS="Input the password of Wireless LAN"
+STRING_NO_WIFI_NETWORK_PASS="You didn't specify any password of Wireless LAN"

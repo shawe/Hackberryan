@@ -1,0 +1,18 @@
+#!/bin/bash
+###
+
+# Predefined values
+
+LANGUAGE="es_ES"
+LICENSE=0
+DEVICE="/dev/mmcblk0"
+HOSTNAME="HackBerryan"
+MAC_ADDRESS="11:22:33:44:55:66"
+WORK_DIR="$HOME/${HOSTNAME}-temp"
+ARM_COMPILER_VERSION="gcc-4.6-arm-linux-gnueabihf"
+IMG_LANG="es_ES.UTF-8"
+ROOT_PASS="root"
+WIFI_NETWORK_NAME="ONO54F0"
+WIFI_NETWORK_PASS="L0EQHGO9EKF7"
+#SD_SPACE="32768"
+SD_SPACE="4096"

@@ -1,0 +1,54 @@
+STRING_LOADING_LANG="Cargando idioma: Español"
+STRING_LICENSE="Licencia"
+STRING_AGREE="He leído y acepto los términos"
+
+STRING_LICENSE_ACCEPTED="Términos de la licencia aceptada por el usuario"
+STRING_LICENSE_REJECTED="No se han aceptado los términos de la licencia"
+STRING_LICENSE_ERROR="Ha ocurrido un error inesperado"
+
+STRING_SELECT_DEVICE="Selecciona dispositivo"
+STRING_DEVICES_PLUGGED="Listando todos los dispositivos conectados"
+STRING_DEVICES="Dispositivos"
+STRING_NO_DEVICE="No ha especificado ningún dispositivo"
+
+STRING_SPECIFY_HOSTNAME="Selecciona un nombre para el equipo"
+STRING_INPUT_HOSTNAME="Introduce un nombre para el equipo:"
+STRING_HOSTNAME_DEFAULT="HackBerryan"
+STRING_NO_HOSTNAME="No ha especificado ningún nombre para el equipo"
+
+STRING_SPECIFY_MAC_ADDR="Selecciona una dirección MAC"
+STRING_INPUT_MAC_ADDR="Introduce una dirección MAC:"
+STRING_MAC_ADDR_DEFAULT="00:11:22:33:44:55"
+STRING_NO_MAC_ADDR="No ha especificado ninguna dirección MAC"
+
+STRING_SPECIFY_WORK_DIR="Selecciona una carpeta de trabajo"
+STRING_INPUT_WORK_DIR="Introduce una carpeta de trabajo:"
+STRING_WORK_DIR_DEFAULT="~/${STRING_HOSTNAME_DEFAULT}-temp"
+STRING_NO_WORK_DIR="No ha especificado ninguna carpeta de trabajo"
+
+STRING_SPECIFY_ARM_COMPILER_VERSION="Selecciona versión de GCC para ARM"
+STRING_INPUT_ARM_COMPILER_VERSION="Selecciona la versión preferida:"
+STRING_ARM_COMPILER_VERSION_COLUMN="GCC"
+STRING_NO_ARM_COMPILER_VERSION="No ha especificado ninguna versión de GCC para ARM"
+
+STRING_SPECIFY_IMG_LANG="Selecciona el idioma para la imagen"
+STRING_IMG_LANG_COLUMN_1="LANG"
+STRING_IMG_LANG_COLUMN_2="Idioma"
+STRING_IMG_LANG_CODE_1_1="es_ES.UTF-8"
+STRING_IMG_LANG_CODE_1_2="Español"
+STRING_IMG_LANG_CODE_2_1="en_US.UTF-8"
+STRING_IMG_LANG_CODE_2_2="English"
+STRING_NO_IMG_LANG="No ha especificado ningún idioma"
+
+STRING_SPECIFY_ROOT_PASS="Selecciona la contraseña para root"
+STRING_INPUT_ROOT_PASS="Introduce la contraseña para root:"
+STRING_ROOT_PASS_DEFAULT="root"
+STRING_NO_ROOT_PASS="No se ha especificado ninguna contraseña para root"
+
+STRING_SPECIFY_WIFI_NETWORK_NAME="Selecciona el nombre de la red WiFi"
+STRING_INPUT_WIFI_NETWORK_NAME="Introduce el nombre de la red WiFi"
+STRING_NO_WIFI_NETWORK_NAME="No se ha especificado un nombre para la red wifi"
+
+STRING_SPECIFY_WIFI_NETWORK_PASS="Selecciona la contraseña de la red WiFi"
+STRING_INPUT_WIFI_NETWORK_PASS="Introduce la contraseña de la red WiFi"
+STRING_NO_WIFI_NETWORK_PASS="No se ha especificado una contraseña para la red wifi"

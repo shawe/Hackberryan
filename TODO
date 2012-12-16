@@ -1,0 +1,3 @@
+ - Allow the user to choose between compile all the necessary files or use precompiled files that are know to be fully working version (less debug problems).
+ - Add some more customization, like choose default desktop or add more default packages.
+ - Complete all minimal external strings.

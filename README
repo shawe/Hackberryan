@@ -1,0 +1,23 @@
+Hackberryan
+===========
+
+Getting Started
+---------------
+
+To get started with Hackberryan:
+	git clone git://github.com/shawe/Hackberryan
+
+Once it's fully downloaded you can execute the script Hackberryan.sh with:
+	./Hackberryan.sh
+And complete the dialogs for have a personalized image for your Hackberry.
+
+Or also you can edit the "config" file for specify your default values, and the script only ask to you the root password when it is needed.
+
+
+Thanks to
+---------------
+
+rhombus-tech: This script is based on her work for Mele A1000 ( http://rhombus-tech.net/allwinner_a10/hacking_the_mele_a1000/script_for_installing_debian_on_sdcard/ )
+All members of linux-sunxi ( https://github.com/linux-sunxi?tab=members ) : for share all work for Allwinner devices
+All members on Miniand Tech forum for sharing here work: https://www.miniand.com/forums/forums/development--3
+And maybe other people than I don't remember at this time ;)
