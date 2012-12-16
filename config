@@ -3,16 +3,29 @@
 
 # Predefined values
 
-LANGUAGE="es_ES"
-LICENSE=0
-DEVICE="/dev/mmcblk0"
-HOSTNAME="HackBerryan"
-MAC_ADDRESS="11:22:33:44:55:66"
-WORK_DIR="$HOME/${HOSTNAME}-temp"
-ARM_COMPILER_VERSION="gcc-4.6-arm-linux-gnueabihf"
-IMG_LANG="es_ES.UTF-8"
-ROOT_PASS="root"
-WIFI_NETWORK_NAME="ONO54F0"
-WIFI_NETWORK_PASS="L0EQHGO9EKF7"
-#SD_SPACE="32768"
-SD_SPACE="4096"
+# If you don't specify nothing here, the script must use zenity for ask you this values
+
+# Don't specify UTF-8 at the end, this is only for load file from languages folder of this script
+#LANGUAGE="en_US"
+# 0 for accept license, if it isn't accepted it must don't work ;)
+#LICENSE=0
+# Default device for the SD card
+#DEVICE="/dev/mmcblk0"
+# Default hostname for Hackberry
+#HOSTNAME="HackBerryan"
+# Default MAC Address
+#MAC_ADDRESS="11:22:33:44:55:66"
+# Default work directory where script must work
+#WORK_DIR="$HOME/${HOSTNAME}-temp"
+# Default ARM Compiler
+#ARM_COMPILER_VERSION="gcc-4.6-arm-linux-gnueabihf"
+# Default language for the system
+#IMG_LANG="en_US.UTF-8"
+# Default root password
+#ROOT_PASS="root"
+# Your wifi name
+#WIFI_NETWORK_NAME="YOUR_WIFI_NAME"
+# Your wifi pass
+#WIFI_NETWORK_PASS="YOUR_WIFI_PASSWORD"
+# Your SD card space (this is used for the rootfs image file create between generation)
+#SD_SPACE="4096"
