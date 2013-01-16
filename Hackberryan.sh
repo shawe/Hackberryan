@@ -73,25 +73,25 @@ msgWarn "DEBUG: SUDO: ${SUDOTOOL}"
 $SUDOTOOL "echo"
 
 # Checking packages dependencies
-if [ "`which zenity | wc -w`" != "0" ] ; then
+if [ "`dpkg -al zenity | wc -w`" != "0" ] ; then
 	msgInfo "zenity already installed"
 else
 	$SUDOTOOL "apt-get install zenity"
 fi
 
-if [ "`which debootstrap | wc -w`" != "0" ] ; then
+if [ "`dpkg -al debootstrap | wc -w`" != "0" ] ; then
 	msgInfo "debootstrap already installed"
 else
 	$SUDOTOOL "apt-get install debootstrap"
 fi
 
-if [ "`whereis qemu-user-static | wc -w`" != "0" ] ; then
+if [ "`dpkg -al qemu-user-static | wc -w`" != "0" ] ; then
 	msgInfo "qemu-user-static already installed"
 else
 	$SUDOTOOL "apt-get install qemu-user-static"
 fi
 
-if [ "`whereis binfmt-support | wc -w`" != "0" ] ; then
+if [ "`dpkg -al binfmt-support | wc -w`" != "0" ] ; then
 	msgInfo "binfmt-support already installed"
 else
 	$SUDOTOOL "apt-get install binfmt-support"
@@ -103,25 +103,25 @@ else
 	$SUDOTOOL "modprobe binfmt_misc"
 fi
 
-if [ "`whereis libusb-1.0-0-dev | wc -w`" != "0" ] ; then
+if [ "`dpkg -al libusb-1.0-0-dev | wc -w`" != "0" ] ; then
 	msgInfo "libusb-1.0-0-dev already installed"
 else
 	$SUDOTOOL "apt-get install libusb-1.0-0-dev"
 fi
 
-if [ "`whereis qemu-kvm-extras-static | wc -w`" != "0" ] ; then
+if [ "`dpkg -al qemu-kvm-extras-static | wc -w`" != "0" ] ; then
 	msgInfo "qemu-kvm-extras-static already installed"
 else
 	$SUDOTOOL "apt-get install qemu-kvm-extras-static"
 fi
 
-if [ "`whereis build-essential | wc -w`" != "0" ] ; then
+if [ "`dpkg -al build-essential | wc -w`" != "0" ] ; then
 	msgInfo "build-essential already installed"
 else
 	$SUDOTOOL "apt-get install build-essential"
 fi
 
-if [ "`whereis git | wc -w`" != "0" ] ; then
+if [ "`dpkg -al git | wc -w`" != "0" ] ; then
 	msgInfo "git already installed"
 else
 	$SUDOTOOL "apt-get install git"
@@ -255,12 +255,12 @@ case $LICENSE in
 		done
 		msgWarn "DEBUG: ARM_COMPILER_VERSION: ${ARM_COMPILER_VERSION}"
 		
-		CROSS_COMPILER_SYSTEM="arm-linux-gnueabihf-"		
+		CROSS_COMPILER_SYSTEM="arm-linux-gnueabihf-"
 		COMPILER_VERSION="${CROSS_COMPILER_SYSTEM}gcc-`echo $ARM_COMPILER_VERSION | sed 's/-/ /g' | awk '{print $2}'`"
 		msgWarn "DEBUG: COMPILER_VERSION: ${COMPILER_VERSION}"
 		msgWarn "DEBUG: CROSS_COMPILER_SYSTEM: ${CROSS_COMPILER_SYSTEM}"
 		
-		if [ "`which ${COMPILER_VERSION} | wc -w`" != "0" ] ; then
+		if [ "`dpkg -al ${COMPILER_VERSION} | wc -w`" != "0" ] ; then
 			msgInfo "${ARM_COMPILER_VERSION} already installed"
 		else
 			$SUDOTOOL "apt-get install ${ARM_COMPILER_VERSION}"
@@ -634,7 +634,7 @@ CHROOTEOF
 			git pull
 		fi
 		
-		make hackberry CROSS_COMPILE=arm-linux-gnueabi- || { msgErr "Compilation of u-boot-sunxi failed" ; exit 1; }
+		make hackberry CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} || { msgErr "Compilation of u-boot-sunxi failed" ; exit 1; }
 		cd ..
 		
 		if [ -e "${WORK_DIR}/source/u-boot-sunxi/spl/u-boot-spl.bin" ]; then
@@ -664,9 +664,9 @@ CHROOTEOF
 		fi
 		
 		make mrproper
-		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- sun4i_defconfig || { msgErr "Compilation of linux-sunxi failed" ; exit 1; }
-		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j16 uImage modules || { msgErr "Compilation of linux-sunxi modules failed" ; exit 1; }
-		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=output modules_install || { msgErr "Generation of output modules failed" ; exit 1; }
+		make ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} sun4i_defconfig || { msgErr "Compilation of linux-sunxi failed" ; exit 1; }
+		make ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} -j16 uImage modules || { msgErr "Compilation of linux-sunxi modules failed" ; exit 1; }
+		make ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} INSTALL_MOD_PATH=output modules_install || { msgErr "Generation of output modules failed" ; exit 1; }
 		cd ..
 		
 		if [ -e "${WORK_DIR}/source/linux-sunxi/arch/arm/boot/uImage" ]; then
