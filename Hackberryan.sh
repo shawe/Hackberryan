@@ -201,9 +201,10 @@ case $LICENSE in
 		PART=""
 		if [ `echo $DEVICE|grep mmc` ]; then
 			PART="p"
-		#else
-			#PART="`echo $DEVICE | grep sd | sed 's/\/dev\/sd//g'`"
-			# Explicitly specified, only need to include the partition number
+			# This is only needed if device is a mmcblk
+			# Do nothing if it's a sd device
+			# Example: /dev/sdc1 and /dev/sdc2
+			#          /dev/mmcblk0p1 and /dev/mmcblk0p1
 		fi
 
 		UBOOT_PART=$DEVICE$PART"1"
