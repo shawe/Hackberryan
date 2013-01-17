@@ -58,6 +58,9 @@ IMG_LANG=""
 ROOT_PASS=""
 WIFI_NETWORK_NAME=""
 
+# Number of processor detected
+THREADS=`cat /proc/cpuinfo | grep processor | wc -l`
+
 # Warning user that debug is enabled
 if [ "$DEBUG" == "true" ]; then
 	msgInfo "WARNING: Debug mode is enabled!"
@@ -76,25 +79,25 @@ $SUDOTOOL "echo"
 if [ "`dpkg -al zenity | wc -w`" != "0" ] ; then
 	msgInfo "zenity already installed"
 else
-	$SUDOTOOL "apt-get install zenity"
+	$SUDOTOOL "apt-get -y install zenity"
 fi
 
 if [ "`dpkg -al debootstrap | wc -w`" != "0" ] ; then
 	msgInfo "debootstrap already installed"
 else
-	$SUDOTOOL "apt-get install debootstrap"
+	$SUDOTOOL "apt-get -y install debootstrap"
 fi
 
 if [ "`dpkg -al qemu-user-static | wc -w`" != "0" ] ; then
 	msgInfo "qemu-user-static already installed"
 else
-	$SUDOTOOL "apt-get install qemu-user-static"
+	$SUDOTOOL "apt-get -y install qemu-user-static"
 fi
 
 if [ "`dpkg -al binfmt-support | wc -w`" != "0" ] ; then
 	msgInfo "binfmt-support already installed"
 else
-	$SUDOTOOL "apt-get install binfmt-support"
+	$SUDOTOOL "apt-get -y install binfmt-support"
 fi
 
 if [ "`lsmod | grep binfmt_misc | wc -l`" == "1" ] ; then
@@ -106,25 +109,31 @@ fi
 if [ "`dpkg -al libusb-1.0-0-dev | wc -w`" != "0" ] ; then
 	msgInfo "libusb-1.0-0-dev already installed"
 else
-	$SUDOTOOL "apt-get install libusb-1.0-0-dev"
+	$SUDOTOOL "apt-get -y install libusb-1.0-0-dev"
 fi
 
 if [ "`dpkg -al qemu-kvm-extras-static | wc -w`" != "0" ] ; then
 	msgInfo "qemu-kvm-extras-static already installed"
 else
-	$SUDOTOOL "apt-get install qemu-kvm-extras-static"
+	$SUDOTOOL "apt-get -y install qemu-kvm-extras-static"
 fi
 
 if [ "`dpkg -al build-essential | wc -w`" != "0" ] ; then
 	msgInfo "build-essential already installed"
 else
-	$SUDOTOOL "apt-get install build-essential"
+	$SUDOTOOL "apt-get -y install build-essential"
 fi
 
 if [ "`dpkg -al git | wc -w`" != "0" ] ; then
 	msgInfo "git already installed"
 else
-	$SUDOTOOL "apt-get install git"
+	$SUDOTOOL "apt-get -y install git"
+fi
+
+if [ "`dpkg -al uboot-mkimage | wc -w`" != "0" ] ; then
+	msgInfo "uboot-mkimage already installed"
+else
+	$SUDOTOOL "apt-get -y install uboot-mkimage"
 fi
 
 # Load predefined values if config file exists
@@ -203,9 +212,8 @@ case $LICENSE in
 		msgWarn "DEBUG: DEVICE PART 1: ${UBOOT_PART}"
 		msgWarn "DEBUG: DEVICE PART 2: ${ROOTFS_PART}"
 		
-		msgInfo "Forcing to umount any /dev/mmc* device..."
-		sudo umount `mount | grep mmc | awk '{print $3}'` &> /dev/null
-		# Falta añadir /dev/null para la salida estandar, sino hay nada montado no es necesario ver errores
+		msgInfo "Forcing to umount any device coincident with your selection..."
+		sudo umount `mount | grep ${DEVICE} | awk '{print $3}'` &> /dev/null
 		
 		# Select a hostname
 		while [ "${HOSTNAME}" == "" ]
@@ -263,7 +271,7 @@ case $LICENSE in
 		if [ "`dpkg -al ${COMPILER_VERSION} | wc -w`" != "0" ] ; then
 			msgInfo "${ARM_COMPILER_VERSION} already installed"
 		else
-			$SUDOTOOL "apt-get install ${ARM_COMPILER_VERSION}"
+			$SUDOTOOL "apt-get -y install ${ARM_COMPILER_VERSION}"
 		fi
 		
 		$SUDOTOOL "rm /usr/bin/arm-linux-gnueabi-gcc"
@@ -634,7 +642,7 @@ CHROOTEOF
 			git pull
 		fi
 		
-		make hackberry CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} || { msgErr "Compilation of u-boot-sunxi failed" ; exit 1; }
+		make -j${THREADS} hackberry CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} || { msgErr "Compilation of u-boot-sunxi failed" ; exit 1; }
 		cd ..
 		
 		if [ -e "${WORK_DIR}/source/u-boot-sunxi/spl/u-boot-spl.bin" ]; then
@@ -664,9 +672,9 @@ CHROOTEOF
 		fi
 		
 		make mrproper
-		make ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} sun4i_defconfig || { msgErr "Compilation of linux-sunxi failed" ; exit 1; }
-		make ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} -j16 uImage modules || { msgErr "Compilation of linux-sunxi modules failed" ; exit 1; }
-		make ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} INSTALL_MOD_PATH=output modules_install || { msgErr "Generation of output modules failed" ; exit 1; }
+		make -j${THREADS} ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} sun4i_defconfig || { msgErr "Compilation of linux-sunxi failed" ; exit 1; }
+		make -j${THREADS} ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} -j16 uImage modules || { msgErr "Compilation of linux-sunxi modules failed" ; exit 1; }
+		make -j${THREADS} ARCH=arm CROSS_COMPILE=${CROSS_COMPILER_SYSTEM} INSTALL_MOD_PATH=output modules_install || { msgErr "Generation of output modules failed" ; exit 1; }
 		cd ..
 		
 		if [ -e "${WORK_DIR}/source/linux-sunxi/arch/arm/boot/uImage" ]; then
@@ -700,7 +708,7 @@ CHROOTEOF
 		fi
 		
 		make clean
-		make || { msgErr "Compilation of sunxi-tools failed" ; exit 1; }
+		make -j${THREADS} || { msgErr "Compilation of sunxi-tools failed" ; exit 1; }
 		cd ..
 		
 		msgInfo "Creating boot.cmd"

@@ -29,3 +29,5 @@
 #WIFI_NETWORK_PASS="YOUR_WIFI_PASSWORD"
 # Your SD card space (this is used for the rootfs image file create between generation)
 #SD_SPACE="4096"
+# Number of processor detected (auto-detected or specify your desired value)
+#THREADS=`cat /proc/cpuinfo | grep processor | wc -l`
